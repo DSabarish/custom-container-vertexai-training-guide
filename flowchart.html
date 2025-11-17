@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertex AI Custom Training Flowchart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+        }
+
+        .phase {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #4299e1;
+        }
+
+        .phase-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phase-number {
+            background: #4299e1;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .step {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border-color: #4299e1;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .step-icon {
+            font-size: 2em;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #2d3748;
+            font-size: 1.1em;
+        }
+
+        .step-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .step-why {
+            background: #edf2f7;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .why-label {
+            font-weight: bold;
+            color: #2b6cb0;
+            margin-bottom: 5px;
+        }
+
+        .why-text {
+            color: #4a5568;
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #4299e1;
+            margin: -15px 0;
+        }
+
+        .legend {
+            background: #edf2f7;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .legend-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-icon {
+            font-size: 1.5em;
+        }
+
+        .legend-text {
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Vertex AI Custom Container Training</h1>
+        <p class="subtitle">Complete Workflow from Data to Predictions</p>
+
+        <div class="flowchart">
+            <!-- PHASE 1: SETUP -->
+            <div class="phase">
+                <div class="phase-title">
+                    <div class="phase-number">1</div>
+                    SETUP PHASE - Preparing Infrastructure
+                </div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">🪣</div>
+                            <div class="step-title">Create GCS Bucket</div>
+                        </div>
+                        <div class="step-description">
+                            Create a Cloud Storage bucket and upload your training dataset (e.g., IRIS.csv)
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Central storage for data and model artifacts. Training containers need a persistent location to read data and save models.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">📓</div>
+                            <div class="step-title">Create Vertex AI Notebook</div>
+                        </div>
+                        <div class="step-description">
+                            Launch a managed notebook instance (4 vCPUs, 15GB RAM) for development
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Development environment to write, test, and debug training code before containerization.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- PHASE 2: DEVELOPMENT -->
+            <div class="phase">
+                <div class="phase-title">
+                    <div class="phase-number">2</div>
+                    DEVELOPMENT PHASE - Writing Training Code
+                </div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">🐍</div>
+                            <div class="step-title">Write Training Script</div>
+                        </div>
+                        <div class="step-description">
+                            Create train.py with: data loading → preprocessing → model training → evaluation → save model.pkl
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Core ML logic that loads data from GCS, trains the model, and saves artifacts back to GCS.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">✅</div>
+                            <div class="step-title">Test in Notebook</div>
+                        </div>
+                        <div class="step-description">
+                            Run training code in notebook to verify it works correctly and produces expected accuracy
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Catch bugs early before containerization. Much faster to debug in notebook than in containers.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- PHASE 3: CONTAINERIZATION -->
+            <div class="phase">
+                <div class="phase-title">
+                    <div class="phase-number">3</div>
+                    CONTAINERIZATION PHASE - Packaging Code
+                </div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">📋</div>
+                            <div class="step-title">Create requirements.txt</div>
+                        </div>
+                        <div class="step-description">
+                            List all dependencies: pandas, scikit-learn==0.24.0, fsspec, gcsfs, google-cloud-storage
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Ensures consistent library versions across environments. Pin versions to prevent breaking changes.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">🐳</div>
+                            <div class="step-title">Create Dockerfile</div>
+                        </div>
+                        <div class="step-description">
+                            Define base image (python:3.7), copy files, install dependencies, set entrypoint to run train.py
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Packages everything into a portable, reproducible environment that can run anywhere.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">🔨</div>
+                            <div class="step-title">Build Docker Image</div>
+                        </div>
+                        <div class="step-description">
+                            Execute: docker build -t iris_custom:v1 . to create container image
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Converts Dockerfile instructions into executable container image with all dependencies baked in.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">📤</div>
+                            <div class="step-title">Push to Artifact Registry</div>
+                        </div>
+                        <div class="step-description">
+                            Tag and push image to GCP's container registry for Vertex AI to access
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Vertex AI needs the image in a registry it can access to launch training jobs.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- PHASE 4: TRAINING -->
+            <div class="phase">
+                <div class="phase-title">
+                    <div class="phase-number">4</div>
+                    TRAINING PHASE - Running ML Job
+                </div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">⚙️</div>
+                            <div class="step-title">Configure Training Job</div>
+                        </div>
+                        <div class="step-description">
+                            In Vertex AI console: select custom container, specify image location, set compute resources
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Tells Vertex AI what container to run, how much compute power to allocate, and where to store outputs.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">🚀</div>
+                            <div class="step-title">Execute Training Job</div>
+                        </div>
+                        <div class="step-description">
+                            Vertex AI spins up compute, runs container, executes train.py, saves model.pkl to GCS
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Managed infrastructure handles scaling, logging, and resource cleanup automatically.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">✔️</div>
+                            <div class="step-title">Verify Model Artifact</div>
+                        </div>
+                        <div class="step-description">
+                            Check GCS bucket for model.pkl file - confirms training completed successfully
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Model artifact is the key output - without it, you can't deploy or make predictions.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- PHASE 5: DEPLOYMENT -->
+            <div class="phase">
+                <div class="phase-title">
+                    <div class="phase-number">5</div>
+                    DEPLOYMENT PHASE - Making Model Available
+                </div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">📚</div>
+                            <div class="step-title">Import to Model Registry</div>
+                        </div>
+                        <div class="step-description">
+                            Register model.pkl in Vertex AI with metadata: framework (scikit-learn), version (0.24)
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Version control and governance. Track model lineage, enable A/B testing, manage multiple versions.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">🌐</div>
+                            <div class="step-title">Deploy to Endpoint</div>
+                        </div>
+                        <div class="step-description">
+                            Create endpoint with compute resources (2 vCPU, 7.5GB RAM) and deploy model for online serving
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Creates REST API for real-time predictions. Handles autoscaling, load balancing, and monitoring.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- PHASE 6: TESTING -->
+            <div class="phase">
+                <div class="phase-title">
+                    <div class="phase-number">6</div>
+                    TESTING PHASE - Validating Predictions
+                </div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">🖥️</div>
+                            <div class="step-title">Test via UI</div>
+                        </div>
+                        <div class="step-description">
+                            Send test data through Vertex AI console: [5.1, 3.5, 1.4, 0.2] → get prediction "setosa"
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Quick validation that endpoint is working correctly before integrating into applications.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">🔌</div>
+                            <div class="step-title">Test via REST API</div>
+                        </div>
+                        <div class="step-description">
+                            Use cURL or Python SDK to make HTTP requests to endpoint for programmatic access
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Real applications need programmatic access. Tests production integration patterns.</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-icon">🎉</div>
+                            <div class="step-title">Production Ready!</div>
+                        </div>
+                        <div class="step-description">
+                            Model is now deployed and ready for real-world predictions in your applications
+                        </div>
+                        <div class="step-why">
+                            <div class="why-label">💡 Why?</div>
+                            <div class="why-text">Endpoint can now serve millions of predictions with managed infrastructure.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEGEND -->
+        <div class="legend">
+            <div class="legend-title">🔑 Key Concepts</div>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-icon">🪣</div>
+                    <div class="legend-text"><strong>GCS Bucket:</strong> Persistent storage for data & artifacts</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon">🐳</div>
+                    <div class="legend-text"><strong>Docker Container:</strong> Portable, reproducible environment</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon">⚙️</div>
+                    <div class="legend-text"><strong>Training Job:</strong> Managed ML training on cloud compute</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon">📚</div>
+                    <div class="legend-text"><strong>Model Registry:</strong> Version control for ML models</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon">🌐</div>
+                    <div class="legend-text"><strong>Endpoint:</strong> Live API for real-time predictions</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
